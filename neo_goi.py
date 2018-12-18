@@ -15,7 +15,7 @@ import json
 REMOTE_IP = 'localhost'
 REMOTE_PORT = 8776
 LOCAL_IP = 'localhost'
-LOCAL_IP = 8777
+LOCAL_PORT = 8777
 
 # some VT100 terminal helpers.
 def clear_screen():
@@ -27,6 +27,14 @@ def cursor_home():
 
 # create the udp listener/receiver to read udp packets
 # from port 8777
+
+sender = udp.UDPChannel()
+receiver = udp.UDPChannel(
+    local_ip=LOCAL_IP,
+    local_port=LOCAL_PORT,
+    remote_port=REMOTE_PORT,
+    remote_ip=REMOTE_IP)
+
 
 clear_screen()
 display = NeoDisplay(256)
