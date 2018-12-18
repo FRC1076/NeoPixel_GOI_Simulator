@@ -1,4 +1,5 @@
-#from UDPChannels import udp
+# copy udp_channels.py to this directory for this to work for now
+#import udp_channels as udp
 from NeoDisplay import NeoDisplay
 import time
 
@@ -15,7 +16,7 @@ REMOTE_PORT = 8776
 LOCAL_IP = 'localhost'
 LOCAL_IP = 8777
 
-# some terminal helpers.
+# some VT100 terminal helpers.
 def clear_screen():
     print(chr(27)+'[2J', end='')
  
