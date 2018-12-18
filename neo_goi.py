@@ -1,7 +1,8 @@
 # copy udp_channels.py to this directory for this to work for now
-#import udp_channels as udp
+import udp_channels as udp
 from NeoDisplay import NeoDisplay
 import time
+import json
 
 #
 #   If the user sets the terminal window to 64 wide and 8 pixels
@@ -34,26 +35,51 @@ display = NeoDisplay(256)
 # just an array of characters seems fine as an implementation
 # but it should probably be a class
 
+
+    
+
+#Creates a test json packet
+def create_test_json_packet():
+    w = [71, 73, 85, 91, 99, 109, 113, 127, 127]
+    #test json packet
+    data = {
+                "sender": 'joystick',
+                "message": 'raw_display',
+                "num_pixels": len(w),
+                "pixel_values": w,
+                "clear": 1
+            }
+    json_data = json.dumps(data)
+    return json_data
+
+
 # Loop forever
 while 1:
 
     # read the incoming udp packet
     received = True 
-    if received:
-
-	# parse the packet with json parser
-	# someone figure this one out?
-
-	# extract the values from the resulting dictionary
-
+    if received:    
         
-	# if there is a "clear" directive, clear the display 
-        clear_directive = True
+        # parse the packet with json parser
+        # someone figure this one out?  
+        
+        d = json.loads(create_test_json_packet())
+        
+        
+        # extract the values from the resulting dictionary
+        if(d['clear'] == 1):
+            clear_directive = True
+        sender = d['sender']
+        message = d['message']
+        num_pixels = d['num_pixels']
+        pixel_values = d['pixel_values']            
+        # if there is a "clear" directive, clear the display 
+        
         if clear_directive:
             display.clear()
 
         # if there are pixel values:
-	# use those values to insert '*' or ' ' in display array
+        # use those values to insert '*' or ' ' in display array
 
         cursor_home()
         print(display.render())
