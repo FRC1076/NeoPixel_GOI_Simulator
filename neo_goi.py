@@ -1,5 +1,4 @@
-# copy udp_channels.py to this directory for this to work for now
-import udp_channels as udp
+from lib1076.udp_channel import UDPChannel as UDPChannel
 from NeoDisplay import NeoDisplay
 import time
 import json
@@ -29,7 +28,7 @@ def cursor_home():
 # from port 8777
 
 
-receiver = udp.UDPChannel(
+receiver = UDPChannel(
     local_ip=LOCAL_IP,
     local_port=LOCAL_PORT,
     remote_port=REMOTE_PORT,

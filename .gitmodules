@@ -1,0 +1,3 @@
+[submodule "lib1076"]
+	path = lib1076
+	url = https://github.com/FRC1076/lib1076.git
