@@ -12,9 +12,9 @@ import json
 #   in another.
 #
 REMOTE_IP = 'localhost'
-REMOTE_PORT = 8776
+REMOTE_PORT = 8877
 LOCAL_IP = 'localhost'
-LOCAL_PORT = 8777
+LOCAL_PORT = 8877
 
 # some VT100 terminal helpers.
 def clear_screen():
