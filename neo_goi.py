@@ -28,7 +28,7 @@ def cursor_home():
 # create the udp listener/receiver to read udp packets
 # from port 8777
 
-sender = udp.UDPChannel()
+
 receiver = udp.UDPChannel(
     local_ip=LOCAL_IP,
     local_port=LOCAL_PORT,
@@ -75,6 +75,7 @@ while 1:
         
         
         # extract the values from the resulting dictionary
+        clear_directive = False
         if(d['clear'] == 1):
             clear_directive = True
         sender = d['sender']
@@ -85,6 +86,7 @@ while 1:
         
         if clear_directive:
             display.clear()
+
 
         # if there are pixel values:
         # use those values to insert '*' or ' ' in display array
