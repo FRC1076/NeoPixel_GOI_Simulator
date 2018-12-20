@@ -6,11 +6,12 @@ class NeoDisplay:
     def clear(self):
         pass
 
-    def render(self):
+    def render(self, error_message="Ok"):
         """
         Return the string rendering of the NeoDisplay contents.
         They should print 
         """
+        #                            1                   2                   3
         #        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
         return '+---------------------------------------------------------------+\n' + \
                '|                                                               |\n' + \
@@ -29,7 +30,8 @@ class NeoDisplay:
                '|                                                               |\n' + \
                '|                                                               |\n' + \
                '|                                                               |\n' + \
-               '+---------------------------------------------------------------+\n'
+               '+---------------------------------------------------------------+\n' + \
+               ' Status: '+error_message 
 
     def set_pixels(self, pixels_to_set):
         """
