@@ -4,17 +4,20 @@ import time
 import json
 
 #
-#   If the user sets the terminal window to 64 wide and 8 pixels
+#   If the user sets the terminal window to 64 wide and 12 pixels
 #   high the display will fill the window.   Set the font to fixed
 #   width font for it to work nicely.
 #
 #   For starters, just run this in one terminal, and the packet producer
 #   in another.
 #
+#   Instead of hard-coding these values, we should extract them
+#   from the command line.
+#
 REMOTE_IP = 'localhost'
 REMOTE_PORT = 8877
 LOCAL_IP = 'localhost'
-LOCAL_PORT = 8877
+LOCAL_PORT = 8876
 
 # some VT100 terminal helpers.
 def clear_screen():
@@ -25,73 +28,62 @@ def cursor_home():
 
 
 # create the udp listener/receiver to read udp packets
-# from port 8777
-
-
+# from port LOCAL_PORT
 receiver = UDPChannel(
     local_ip=LOCAL_IP,
     local_port=LOCAL_PORT,
-    remote_port=REMOTE_PORT,
-    remote_ip=REMOTE_IP)
+    remote_ip=REMOTE_IP,
+    remote_port=REMOTE_PORT)
 
-
-clear_screen()
-display = NeoDisplay(256)
 
 # create the display, initialized to ' '
 # just an array of characters seems fine as an implementation
 # but it should probably be a class
+display = NeoDisplay(256)
 
-
-    
-
-#Creates a test json packet
-def create_test_json_packet():
-    w = [71, 73, 85, 91, 99, 109, 113, 127, 127]
-    #test json packet
-    data = {
-                "sender": 'joystick',
-                "message": 'raw_display',
-                "num_pixels": len(w),
-                "pixel_values": w,
-                "clear": 1
-            }
-    json_data = json.dumps(data)
-    return json_data
-
+clear_screen()
+print(display.render())
 
 # Loop forever
 while 1:
 
+    (message,(recv_addr,recv_port)) = receiver.receive_from()
+
     # read the incoming udp packet
-    received = True 
-    if received:    
+    if message is not None:
         
-        # parse the packet with json parser
-        # someone figure this one out?  
-        
-        d = json.loads(create_test_json_packet())
-        
+        # Test this to see what exception it generates
+        # if the message is not valid json.  Then add
+        # try/except so we can report a problem instead
+        # of blindly trying to update the display.
+        d = json.loads(message)
         
         # extract the values from the resulting dictionary
         clear_directive = False
         if(d['clear'] == 1):
             clear_directive = True
+
+        # we should probably check the message to make sure that
+        # it is one we know how to handle
         sender = d['sender']
         message = d['message']
         num_pixels = d['num_pixels']
         pixel_values = d['pixel_values']            
-        # if there is a "clear" directive, clear the display 
         
+        # if there is a "clear" directive, clear the display 
         if clear_directive:
             display.clear()
 
-
         # if there are pixel values:
         # use those values to insert '*' or ' ' in display array
+        display.set_pixels(pixel_values)
 
         cursor_home()
-        print(display.render())
+        print(display.render(
+                'Received ' +
+                str(pixel_values)+' from ('  +
+                str(recv_addr)+',' +
+                str(recv_port)+')'))
 
     #
     # wait for a second before trying to read again
