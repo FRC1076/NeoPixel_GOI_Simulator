@@ -2,7 +2,7 @@ from lib1076.udp_channel import UDPChannel as UDPChannel
 from NeoDisplay import NeoDisplay
 import time
 import json
-
+import sys,argparse
 #
 #   If the user sets the terminal window to 64 wide and 12 pixels
 #   high the display will fill the window.   Set the font to fixed
@@ -27,6 +27,32 @@ def cursor_home():
     print(chr(27)+'[H', end='')
 
 
+#Deal with arguments
+arguments = len(sys.argv) - 1  
+parser = argparse.ArgumentParser()  
+parser.add_argument("-LP", "--localport", help="sets localport")
+parser.add_argument("-RP", "--remoteport", help="sets remoteport")
+parser.add_argument("-LI", "--localip", help="sets localip")
+parser.add_argument("-RI", "--remoteip", help="sets remoteip")
+# read arguments from the command line
+args = parser.parse_args()
+
+# check for --version or -V
+if args.localport:  
+    print("set local port to %s" % args.localport)
+    LOCAL_PORT = args.localport
+elif args.remoteport:  
+    print("set remote port to %s" % args.remoteport)
+    REMOTE_PORT = args.remote_port
+elif args.remoteip:  
+    print("set remote ip to %s" % args.remoteip)
+    REMOTE_IP = args.remoteip
+elif args.localip:  
+    print("set local ip to %s" % args.localip)
+    LOCAL_IP = args.local_ip
+
+
+
 # create the udp listener/receiver to read udp packets
 # from port LOCAL_PORT
 receiver = UDPChannel(
@@ -34,6 +60,9 @@ receiver = UDPChannel(
     local_port=LOCAL_PORT,
     remote_ip=REMOTE_IP,
     remote_port=REMOTE_PORT)
+
+
+
 
 
 # create the display, initialized to ' '
