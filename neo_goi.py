@@ -1,4 +1,10 @@
-from lib1076.udp_channel import UDPChannel as UDPChannel
+
+try:
+    from frc1076lib.udp_channel import UDPChannel as UDPChannel
+except :
+    from lib1076.udp_channel import UDPChannel as UDPChannel
+
+#Ignore error here
 from NeoDisplay import NeoDisplay
 import time
 import json
