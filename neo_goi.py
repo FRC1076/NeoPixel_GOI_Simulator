@@ -76,6 +76,7 @@ print(display.render())
 
 # Loop forever
 while 1:
+    import pdb; pdb.set_trace()
     if (receiver.receive_from() == (None, None)):
         continue
     else:

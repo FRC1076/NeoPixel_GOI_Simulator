@@ -35,21 +35,22 @@ class NeoDisplay:
                 ' Status: '+error_message
         else:
             pixels = self.pixels
-            print(pixels)
+            #print(pixels)
+            values = [ '*', ' ', '*', ' ' ]
+            line0 = [0, 2]
 
-            #line0 = [0, 2]
+            line_values = []
 
-            #line_values = []
-
-            #for positions in line0:
-            #    line_values.append(values[positions])
-            #rendered_line = '| ' + ' '.join(line_values) + ' |'
-            #return (rendered_line)
-            return 0
-
+            for positions in line0:
+                line_values.append(values[positions])
+            rendered_line = '| ' + ' '.join(line_values) + ' |'
+            return (rendered_line)
+           
     def set_pixels(self, pixels_to_set):
         """
         Given an array of pixels indices, turn on the pixel
         in that position.
         """
         self.pixels = pixels_to_set
+
+
