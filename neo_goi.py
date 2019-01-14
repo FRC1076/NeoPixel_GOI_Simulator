@@ -18,7 +18,7 @@ import sys, argparse
 #
 #   Instead of hard-coding these values, we should extract them
 #   from the command line.
-#
+#   Make Sure the ports are correct
 REMOTE_IP = 'localhost'
 REMOTE_PORT = 8877
 LOCAL_IP = 'localhost'
