@@ -76,7 +76,7 @@ print(display.render())
 
 # Loop forever
 while 1:
-    import pdb; pdb.set_trace()
+    
     if (receiver.receive_from() == (None, None)):
         continue
     else:
@@ -106,6 +106,9 @@ while 1:
         # if there is a "clear" directive, clear the display
         if clear_directive:
             display.clear()
+
+
+        
 
         # if there are pixel values:
         # use those values to insert '*' or ' ' in display array
