@@ -39,52 +39,38 @@ class NeoDisplay:
                 ' Status: '+error_message
         else:
            
-            #print(height)
             pixels=self.pixels
             
+            #List of all pixels
             rows = []
-            #self.pixels = [71, 73, 85, 91, 99, 109, 113, 127, 127]
-
-
-            #print(len(pixels))
             
-         
+            #Regenerate Row list
             for i in range(width*height):
                 rows.append(' ')
             
-            #print("test")
             
-            
-
-            p = len(pixels)
-            r = len(rows)
-            #Draw line  
-            for current_pixel_value in range(p):
-                for current_row_value in range(r):
-                    if(current_row_value == pixels[current_pixel_value]):
-                        rows[current_row_value] = 'x'
-                            
+            #Draw Pixels
+            for current_pixel_value in range(len(pixels)):
+                rows[pixels[current_pixel_value]] = 'x'            
                         
-                    
-            
-            #Convert array into mulitple arras
-            height = height
+
+            #Convert array into mulitple arrays
+            height = height #Why do we need this?
             out = self.partition(rows,height)
-            #print("test")
             
             rendered_lines = []
            
             for i in range(height):#16 lines
                 rendered_line = '| ' + ' '.join(out[i]) + ' |'
-                
                 rendered_lines.append(rendered_line)
 
               
-            #print(rendered_lines)
+            #This could probely be simplified
             top = []
             for i in range(width):
                 top.append('--')
             
+            #Put everything into a readable format
             final_string =  ''.join(top) + '---' + '\n'  + ' \n'.join(rendered_lines) + '\n' + ''.join(top) + '---'
                 
                 
