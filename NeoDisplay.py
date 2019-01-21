@@ -54,19 +54,18 @@ class NeoDisplay:
             
             #print("test")
             
-            current_row_value=0
-            current_pixel_value=0
+            
 
-
+            p = len(pixels)
+            r = len(rows)
             #Draw line  
-            while(current_pixel_value < len(pixels)):
-                    while(current_row_value < len(rows)):
-                        if(current_row_value == pixels[current_pixel_value]):
-                            rows[current_row_value] = 'x'
+            for current_pixel_value in range(p):
+                for current_row_value in range(r):
+                    if(current_row_value == pixels[current_pixel_value]):
+                        rows[current_row_value] = 'x'
                             
-                        current_row_value+=1
-                    current_row_value=0
-                    current_pixel_value+=1    
+                        
+                    
             
             #Convert array into mulitple arras
             height = height
