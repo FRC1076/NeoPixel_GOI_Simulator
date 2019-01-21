@@ -1,4 +1,3 @@
-import numpy as np
 
 
 class NeoDisplay:
@@ -14,7 +13,7 @@ class NeoDisplay:
         They should print 
         """
         #for debuging
-        #self.pixels = [71, 70, 74, 75, 83, 82, 94, 95]
+        self.pixels = [71, 70, 74, 75, 83, 82, 94, 95]
 
         if (error_message == "No Data" or self.pixels == []):
             #                        1                   2                   3
@@ -40,7 +39,7 @@ class NeoDisplay:
                 ' Status: '+error_message
         else:
            
-           
+            #print(height)
             pixels=self.pixels
             
             rows = []
@@ -53,7 +52,7 @@ class NeoDisplay:
             for i in range(width*height):
                 rows.append(' ')
             
-            
+            #print("test")
             
             current_row_value=0
             current_pixel_value=0
@@ -72,17 +71,25 @@ class NeoDisplay:
             #Convert array into mulitple arras
             height = height
             out = self.partition(rows,height)
-            
+            #print("test")
             
             rendered_lines = []
-            for i in height:#16 lines
+           
+            for i in range(height):#16 lines
                 rendered_line = '| ' + ' '.join(out[i]) + ' |'
                 
                 rendered_lines.append(rendered_line)
-                rendered_lines.append("\n")
-                
 
-            return rendered_lines
+              
+            #print(rendered_lines)
+            top = []
+            for i in range(width):
+                top.append('--')
+            
+            final_string =  ''.join(top) + '---' + '\n'  + ' \n'.join(rendered_lines) + '\n' + ''.join(top) + '---'
+                
+                
+            return (final_string)
                  
                         
 
