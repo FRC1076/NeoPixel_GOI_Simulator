@@ -1,13 +1,15 @@
 
 
 class NeoDisplay:
-    def __init__(self, num_pixels):
+    def __init__(self, num_pixels, width=16, height=16):
         self.pixels = []
+        self.width = width
+        self.height = height
 
     def clear(self):
         pass
 
-    def render(self, error_message="Ok", width=16, height=16):
+    def render(self, error_message="Ok"):
         """
         Return the string rendering of the NeoDisplay contents.
         They should print 
@@ -40,7 +42,8 @@ class NeoDisplay:
         else:
            
             pixels=self.pixels
-            
+            height=self.height
+            width=self.width
             #List of all pixels
             rows = []
             
