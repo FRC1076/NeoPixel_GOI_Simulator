@@ -20,9 +20,9 @@ import sys, argparse
 #   from the command line.
 #   Make Sure the ports are correct
 REMOTE_IP = 'localhost'
-REMOTE_PORT = 8877
+REMOTE_PORT = 8677
 LOCAL_IP = 'localhost'
-LOCAL_PORT = 8876
+LOCAL_PORT = 8877
 
 
 # some VT100 terminal helpers.
@@ -77,7 +77,7 @@ print(display.render())
 # Loop forever
 while 1:
     
-    if (receiver.receive_from() == (None, None)):
+    if (receiver.receive_from() is not None):
         continue
     else:
         (message, (recv_addr, recv_port)) = receiver.receive_from()

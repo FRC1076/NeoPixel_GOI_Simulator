@@ -14,7 +14,7 @@ class NeoDisplay:
         They should print 
         """
         #for debuging
-        self.pixels = [71, 73, 85, 91, 99, 109, 113, 127, 127]
+        self.pixels = [71, 70, 74, 75, 83, 82, 94, 95]
 
         if (error_message == "No Data" or self.pixels == []):
             #                        1                   2                   3
