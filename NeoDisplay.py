@@ -8,13 +8,13 @@ class NeoDisplay:
     def clear(self):
         pass
 
-    def render(self, error_message="Ok"):
+    def render(self, error_message="Ok", width=16, height=16):
         """
         Return the string rendering of the NeoDisplay contents.
         They should print 
         """
         #for debuging
-        self.pixels = [71, 70, 74, 75, 83, 82, 94, 95]
+        #self.pixels = [71, 70, 74, 75, 83, 82, 94, 95]
 
         if (error_message == "No Data" or self.pixels == []):
             #                        1                   2                   3
@@ -49,10 +49,11 @@ class NeoDisplay:
 
             #print(len(pixels))
             
-            i = 0
-            while(i < 256):
+         
+            for i in range(width*height):
                 rows.append(' ')
-                i+=1
+            
+            
             
             current_row_value=0
             current_pixel_value=0
@@ -69,18 +70,17 @@ class NeoDisplay:
                     current_pixel_value+=1    
             
             #Convert array into mulitple arras
+            height = height
+            out = self.partition(rows,height)
             
-            out = self.partition(rows,16)
             
-            i=0
             rendered_lines = []
-            while(i<16):#16 lines
+            for i in height:#16 lines
                 rendered_line = '| ' + ' '.join(out[i]) + ' |'
                 
                 rendered_lines.append(rendered_line)
                 rendered_lines.append("\n")
-                i+=1
-            #rendered_out = out #do stuff
+                
 
             return rendered_lines
                  
