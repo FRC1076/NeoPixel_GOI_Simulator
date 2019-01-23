@@ -110,7 +110,7 @@ while 1:
 
         #For Debugging
         pixel_values = [71, 70, 74, 75, 83, 82, 94, 95]
-
+        print(display.set_pixels([6,5]))
 
         # if there are pixel values:
         # use those values to insert '*' or ' ' in display array

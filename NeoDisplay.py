@@ -78,12 +78,12 @@ class NeoDisplay:
         Given an array of pixels indices, turn on the pixel
         in that position.
         """
-
+        import pdb; pdb.set_trace() 
         self.pixels = pixels_to_set
-        
+
         #Regenerate Row list
         pixels_to_rows = [' '] * (self.width*self.height)
-        
+
         #Draw Pixels    
         for cpv in self.pixels:
             pixels_to_rows[cpv] = 'x'  
