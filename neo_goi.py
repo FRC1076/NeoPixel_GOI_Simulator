@@ -72,16 +72,27 @@ receiver = UDPChannel(
 display = NeoDisplay(256)
 
 clear_screen()
-print(display.render())
+
+
+
+
+DEBUGING = True
 
 # Loop forever
 while 1:
     
-    if (receiver.receive_from() is not None):
-        continue
-    else:
+    if (receiver.receive_from() != (None, None)):
         (message, (recv_addr, recv_port)) = receiver.receive_from()
+    elif(DEBUGING):
+        message = {"sender": "joystick", "message": "raw_display", "num_pixels": 9, "pixel_values": [71, 73, 85, 91, 99, 109, 113, 127, 127], "clear": 1}
+        message = json.dumps(message)
+        recv_addr = 'testing'
+        recv_port = 'testing'
+    else:
+        continue
 
+ 
+ 
     # read the incoming udp packet
     if message is not None:
 
@@ -107,15 +118,15 @@ while 1:
         if clear_directive:
             display.clear()
 
-
-        #For Debugging
-        pixel_values = [71, 70, 74, 75, 83, 82, 94, 95]
-        print(display.set_pixels([6,5]))
+        
+        
+       
+        
 
         # if there are pixel values:
         # use those values to insert '*' or ' ' in display array
         display.set_pixels(pixel_values)
-
+       
         cursor_home()
         print(
             display.render('Received ' + str(pixel_values) + ' from (' +

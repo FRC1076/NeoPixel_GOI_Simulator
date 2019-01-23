@@ -16,7 +16,7 @@ class NeoDisplay:
         They should print 
         """
         
-        print(self.pixels)
+        
         if (error_message == "No Data"):
             #                        1                   2                   3
             #        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -60,7 +60,7 @@ class NeoDisplay:
             #Put everything into a readable format
             banner = ''.join(top) + '---'
             display_elements = [ banner ] +rendered_lines +[ banner ]
-
+           
             return '\n'.join(display_elements)   
                 
             
@@ -78,7 +78,7 @@ class NeoDisplay:
         Given an array of pixels indices, turn on the pixel
         in that position.
         """
-        import pdb; pdb.set_trace() 
+
         self.pixels = pixels_to_set
 
         #Regenerate Row list
@@ -89,5 +89,5 @@ class NeoDisplay:
             pixels_to_rows[cpv] = 'x'  
 
         self.rows = pixels_to_rows
-        print(self.rows)
+        
         return 0
