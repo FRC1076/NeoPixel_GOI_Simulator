@@ -14,11 +14,36 @@ class NeoDisplay:
 
         for i in range(len(coord_list)):
             current_coord = coord_list[i]
-            #Check if even or odd
-            #if even go down
-            #if odd go up
-            #new_coord = (current_coord - 1) * (self.height / 2)
-            #new_coord_list.append(new_coord)
+
+            column = (current_coord % self.width) + 1
+            row = (int(current_coord / self.height)) + 1
+
+            serpentine_value = ((column - 1) * self.height)
+            if ((column % 2) == 0):  #column is even
+                #if (width == 8):
+                serpentine_value += (self.height - row)
+
+            else:  #column is odd
+                serpentine_value += row - 1
+            new_coord_list.append(serpentine_value)
+
+        return new_coord_list
+
+    def serpentine_to_coord(self, coord_list):
+        new_coord_list = []
+        for i in range(len(coord_list)):
+            current_coord = coord_list[i]
+
+            column = (int(current_coord / self.height)) + 1
+
+            if ((column % 2) == 0):
+                row = (self.height - (current_coord % self.width))
+                x = ((row - 1) * self.width) + column
+            else:
+                row = (current_coord % self.height)
+
+                x = (((row - 0) * self.width) + column - 1)
+            new_coord_list.append(x)
 
         return new_coord_list
 
@@ -88,7 +113,7 @@ class NeoDisplay:
         in that position.
         """
 
-        self.pixels = pixels_to_set
+        self.pixels = self.pixels + self.serpentine_to_coord(pixels_to_set)
 
         #Regenerate Row list
         pixels_to_rows = [' '] * (self.width * self.height)
