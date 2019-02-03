@@ -1,12 +1,16 @@
+class Pixel:
+    def __init__(self, pixel_loc, color):
+        self.pixel_loc = pixel_loc
+        self.color = color
+
+
 class NeoDisplay:
     def __init__(self, num_pixels, width=16, height=16):
         self.pixels = []
         self.rows = []
         self.width = width
         self.height = height
-
-    def clear(self):
-        print(chr(27) + '[2J', end='')
+        self.pixelcollist = []
 
     def coord_to_serpentine(self, coord_list):
 
@@ -44,8 +48,24 @@ class NeoDisplay:
 
                 x = (((row - 0) * self.width) + column - 1)
             new_coord_list.append(x)
-
         return new_coord_list
+
+    def clear(self, oneCoord=None, twoCoord=None):
+        x = [oneCoord]
+        y = [twoCoord]
+
+        if (oneCoord is not None):
+            oneCoord = self.coord_to_serpentine(x)
+            twoCoord = self.coord_to_serpentine(y)
+            print(self.pixels[0])
+            print(oneCoord)
+            oneCoord = oneCoord[0]
+            twoCoord = twoCoord[0]
+            for x in range(len(self.pixels)):
+                if (self.pixels[x] >= oneCoord & self.pixels[x] <= twoCoord):
+                    self.pixels[x] = ' '
+        else:
+            print(chr(27) + '[2J', end='')
 
     def render(self, error_message="Ok"):
         """
@@ -80,7 +100,7 @@ class NeoDisplay:
             #Convert array into mulitple arrays
 
             out = self.partition(self.rows, self.height)
-
+            #print(out)
             rendered_lines = []
 
             for i in range(self.height):  #16 lines
@@ -96,7 +116,7 @@ class NeoDisplay:
             #test the serpentine function
             x = []
             x = self.coord_to_serpentine([1, 2, 3, 4, 5, 6])
-            print(x)
+            #print(x)
 
             return '\n'.join(display_elements)
 
@@ -107,20 +127,22 @@ class NeoDisplay:
             for i in range(n)
         ]
 
-    def set_pixels(self, pixels_to_set):
+    def set_pixels(self, pixels_to_set, colors):
         """
         Given an array of pixels indices, turn on the pixel
         in that position.
         """
-
-        self.pixels = self.pixels + self.serpentine_to_coord(pixels_to_set)
+        #print(self.serpentine_to_coord(pixels_to_set))
+        self.pixels = self.serpentine_to_coord(pixels_to_set)
 
         #Regenerate Row list
         pixels_to_rows = [' '] * (self.width * self.height)
 
-        #Draw Pixels
+        i = 0
         for cpv in self.pixels:
-            pixels_to_rows[cpv] = 'x'
+
+            pixels_to_rows[cpv] = colors[i] + 'x' + '\u001b[0m'
+            i += 1
 
         self.rows = pixels_to_rows
 

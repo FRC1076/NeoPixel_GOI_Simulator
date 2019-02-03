@@ -1,10 +1,7 @@
-import math
-
-width = 8
-height = 8
-
-
-def coord_to_serpentine(coord_list):
+def coord_to_serpentine(coord_list, width, height):
+    width = width
+    height = height
+    new_coord_list = []
 
     for i in range(len(coord_list)):
         current_coord = coord_list[i]
@@ -19,11 +16,15 @@ def coord_to_serpentine(coord_list):
 
         else:  #column is odd
             serpentine_value += row - 1
-        return serpentine_value
+        new_coord_list.append(serpentine_value)
+
+    return new_coord_list
 
 
-def serpentine_to_coord(coord_list):
-
+def serpentine_to_coord(coord_list, width, height):
+    width = width
+    height = height
+    new_coord_list = []
     for i in range(len(coord_list)):
         current_coord = coord_list[i]
 
@@ -34,12 +35,8 @@ def serpentine_to_coord(coord_list):
             x = ((row - 1) * width) + column
         else:
             row = (current_coord % height)
-            print("hi")
+
             x = (((row - 0) * width) + column - 1)
-        print(row)
+        new_coord_list.append(x)
 
-        return x
-
-
-print(serpentine_to_coord([28]))
-#final result should be 27
+    return new_coord_list

@@ -75,6 +75,14 @@ clear_screen()
 
 DEBUGING = True
 
+
+class Color:
+    r = '\u001b[31m'
+    g = '\u001b[32m'
+    b = '\u001b[34m'
+    RESET = '\u001b[0m'
+
+
 # Loop forever
 while 1:
 
@@ -82,11 +90,19 @@ while 1:
         (message, (recv_addr, recv_port)) = receiver.receive_from()
     elif (DEBUGING):
         message = {
-            "sender": "joystick",
-            "message": "raw_display",
-            "num_pixels": 9,
+            "sender":
+            "joystick",
+            "message":
+            "raw_display",
+            "num_pixels":
+            9,
             "pixel_values": [71, 73, 85, 91, 99, 109, 113, 127, 127],
-            "clear": 1
+            "color": [
+                Color.r, Color.g, Color.b, Color.g, Color.b,
+                Color.g, Color.g, Color.b, Color.g
+            ],
+            "clear":
+            1
         }
         message = json.dumps(message)
         recv_addr = 'testing'
@@ -114,19 +130,20 @@ while 1:
         message = d['message']
         num_pixels = d['num_pixels']
         pixel_values = d['pixel_values']
+        colors = d['color']
 
         # if there is a "clear" directive, clear the display
-        if clear_directive:
-            display.clear()
 
         # if there are pixel values:
         # use those values to insert '*' or ' ' in display array
-        display.set_pixels(pixel_values)
+        display.set_pixels(pixel_values, colors)
 
         cursor_home()
         print(
             display.render('Received ' + str(pixel_values) + ' from (' +
                            str(recv_addr) + ',' + str(recv_port) + ')'))
+
+        display.clear(0, 30)
 
     #
     # wait for a second before trying to read again
