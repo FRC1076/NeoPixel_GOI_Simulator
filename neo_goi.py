@@ -96,7 +96,7 @@ while 1:
             "raw_display",
             "num_pixels":
             9,
-            "pixel_values": [71, 73, 85, 91, 99, 109, 113, 127, 127],
+            "pixel_values": [0, 73, 85, 91, 204, 109, 113, 127, 255],
             "color": [
                 Color.r, Color.g, Color.b, Color.g, Color.b,
                 Color.g, Color.g, Color.b, Color.g
@@ -136,14 +136,24 @@ while 1:
 
         # if there are pixel values:
         # use those values to insert '*' or ' ' in display array
+
+
         display.set_pixels(pixel_values, colors)
 
+        #To clear the screen, 
+        #display.set_pixels(clear=(0,1))
+
+
+        #clear
         cursor_home()
+
+
         print(
             display.render('Received ' + str(pixel_values) + ' from (' +
                            str(recv_addr) + ',' + str(recv_port) + ')'))
 
-        display.clear(0, 30)
+
+
 
     #
     # wait for a second before trying to read again

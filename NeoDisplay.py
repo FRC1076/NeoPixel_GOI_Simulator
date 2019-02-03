@@ -51,28 +51,30 @@ class NeoDisplay:
         return new_coord_list
 
     def clear(self, oneCoord=None, twoCoord=None):
-        x = [oneCoord]
-        y = [twoCoord]
+        #x = oneCoord
+        #y = twoCoord]
 
-        if (oneCoord is not None):
-            oneCoord = self.coord_to_serpentine(x)
-            twoCoord = self.coord_to_serpentine(y)
-            print(self.pixels[0])
-            print(oneCoord)
-            oneCoord = oneCoord[0]
-            twoCoord = twoCoord[0]
-            for x in range(len(self.pixels)):
-                if (self.pixels[x] >= oneCoord & self.pixels[x] <= twoCoord):
-                    self.pixels[x] = ' '
-        else:
-            print(chr(27) + '[2J', end='')
+        #if (oneCoord is not None):
+
+        #    pixels_to_remove = []  #[56,57,58,59]
+        #    pixels_to_rows = [' '] * (self.width * self.height)
+
+        #             for x in range(twoCoord - oneCoord):
+        #                 pixels_to_remove.append(x)
+        #             #print(pixels_to_remove)
+        #             for cpv in pixels_to_remove:
+        #                 pixels_to_rows[cpv] = ' '
+        #             self.rows = pixels_to_rows
+        #             #print(self.rows)
+        #         else:
+        print(chr(27) + '[2J', end='')
 
     def render(self, error_message="Ok"):
         """
         Return the string rendering of the NeoDisplay contents.
         They should print 
         """
-        self.clear()
+        #self.clear()
         if (error_message == "No Data"):
             #                        1                   2                   3
             #        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -127,22 +129,34 @@ class NeoDisplay:
             for i in range(n)
         ]
 
-    def set_pixels(self, pixels_to_set, colors):
+    def set_pixels(self, pixels_to_set=[], colors=[], clear=None):
         """
         Given an array of pixels indices, turn on the pixel
         in that position.
         """
         #print(self.serpentine_to_coord(pixels_to_set))
-        self.pixels = self.serpentine_to_coord(pixels_to_set)
 
         #Regenerate Row list
         pixels_to_rows = [' '] * (self.width * self.height)
 
-        i = 0
-        for cpv in self.pixels:
+        #clear should be (onePixel,twoPixel)
+        if (clear is not None):
+            oneCoord, twoCoord = clear
 
-            pixels_to_rows[cpv] = colors[i] + 'x' + '\u001b[0m'
-            i += 1
+            pixels_to_remove = []  #[56,57,58,59]
+
+            for x in range(oneCoord, twoCoord):
+                pixels_to_remove.append(x)
+            for cpv in pixels_to_remove:
+                pixels_to_rows[cpv] = ' '
+
+        else:
+            self.pixels = self.serpentine_to_coord(pixels_to_set)
+            i = 0
+            for cpv in self.pixels:
+                pixels_to_rows[cpv] = colors[i] + 'x' + '\u001b[0m'
+
+                i += 1
 
         self.rows = pixels_to_rows
 
