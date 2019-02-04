@@ -83,6 +83,7 @@ class Color:
     RESET = '\u001b[0m'
 
 
+
 # Loop forever
 while 1:
 
@@ -102,7 +103,7 @@ while 1:
                 Color.g, Color.g, Color.b, Color.g
             ],
             "clear":
-            1
+            0
         }
         message = json.dumps(message)
         recv_addr = 'testing'
@@ -138,18 +139,24 @@ while 1:
         # use those values to insert '*' or ' ' in display array
 
 
-        display.set_pixels(pixel_values, colors)
+        display.set_pixels(pixel_values, colors, '*')
 
-        #To clear the screen, 
-        #display.set_pixels(clear=(0,1))
-
+        
+        
+        
 
         #clear
         cursor_home()
-
-
-        print(
-            display.render('Received ' + str(pixel_values) + ' from (' +
+        
+        #Clear part of screen
+        display.set_pixels([0], pixel_type=' ')
+        
+        if(clear_directive):
+            display.clear(clear_screen=True)
+            
+        else:
+            print(
+                display.render('Received ' + str(pixel_values) + ' from (' +
                            str(recv_addr) + ',' + str(recv_port) + ')'))
 
 

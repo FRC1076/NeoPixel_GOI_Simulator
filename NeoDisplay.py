@@ -12,6 +12,9 @@ class NeoDisplay:
         self.height = height
         self.pixelcollist = []
 
+        self.pixels_to_rows = [' '] * (self.width * self.height)
+
+
     def coord_to_serpentine(self, coord_list):
 
         new_coord_list = []
@@ -50,24 +53,23 @@ class NeoDisplay:
             new_coord_list.append(x)
         return new_coord_list
 
-    def clear(self, oneCoord=None, twoCoord=None):
+    def clear(self, clear_screen=False):
         #x = oneCoord
         #y = twoCoord]
+        pixels_to_rows = [' '] * (self.width * self.height)
 
-        #if (oneCoord is not None):
+        if (clear_screen is not False):
 
-        #    pixels_to_remove = []  #[56,57,58,59]
-        #    pixels_to_rows = [' '] * (self.width * self.height)
+            oneCoord, twoCoord = (0,1)
 
-        #             for x in range(twoCoord - oneCoord):
-        #                 pixels_to_remove.append(x)
-        #             #print(pixels_to_remove)
-        #             for cpv in pixels_to_remove:
-        #                 pixels_to_rows[cpv] = ' '
-        #             self.rows = pixels_to_rows
-        #             #print(self.rows)
-        #         else:
-        print(chr(27) + '[2J', end='')
+            pixels_to_remove = []  #[56,57,58,59]
+
+            for x in range(oneCoord, twoCoord):
+                pixels_to_remove.append(x)
+            for cpv in pixels_to_remove:
+                pixels_to_rows[cpv] = ' '
+        else:
+            print(chr(27) + '[2J', end='')
 
     def render(self, error_message="Ok"):
         """
@@ -129,35 +131,33 @@ class NeoDisplay:
             for i in range(n)
         ]
 
-    def set_pixels(self, pixels_to_set=[], colors=[], clear=None):
+    def set_pixels(self, pixels_to_set=[], colors=[], pixel_type='*'):
         """
         Given an array of pixels indices, turn on the pixel
         in that position.
+
+        To clear a pixel, set pixel_type to ' '
+        To Set a pixel, give list of pixels and their colors
+
+        To change the pixel reperesentation, change pixel_type to something else
+
         """
         #print(self.serpentine_to_coord(pixels_to_set))
 
         #Regenerate Row list
-        pixels_to_rows = [' '] * (self.width * self.height)
-
+        print(pixels_to_set)
         #clear should be (onePixel,twoPixel)
-        if (clear is not None):
-            oneCoord, twoCoord = clear
 
-            pixels_to_remove = []  #[56,57,58,59]
+        self.pixels = self.serpentine_to_coord(pixels_to_set)
+        i = 0
+        for cpv in self.pixels:
+            
+            if(colors != []):
+                self.pixels_to_rows[cpv] = colors[i] + pixel_type + '\u001b[0m'
+            else:
+                self.pixels_to_rows[cpv] = pixel_type
+            i += 1
 
-            for x in range(oneCoord, twoCoord):
-                pixels_to_remove.append(x)
-            for cpv in pixels_to_remove:
-                pixels_to_rows[cpv] = ' '
-
-        else:
-            self.pixels = self.serpentine_to_coord(pixels_to_set)
-            i = 0
-            for cpv in self.pixels:
-                pixels_to_rows[cpv] = colors[i] + 'x' + '\u001b[0m'
-
-                i += 1
-
-        self.rows = pixels_to_rows
+        self.rows = self.pixels_to_rows
 
         return 0
