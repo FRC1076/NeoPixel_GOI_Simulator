@@ -104,10 +104,10 @@ class NeoDisplay:
             #Convert array into mulitple arrays
 
             out = self.partition(self.rows, self.height)
-            #print(out)
+
             rendered_lines = []
 
-            for i in range(self.height):  #16 lines
+            for i in range(self.height):  
                 rendered_line = '| ' + ' '.join(out[i]) + ' |'
                 rendered_lines.append(rendered_line)
 
@@ -117,10 +117,6 @@ class NeoDisplay:
             banner = ''.join(top) + '---'
             display_elements = [banner] + rendered_lines + [banner]
 
-            #test the serpentine function
-            x = []
-            x = self.coord_to_serpentine([1, 2, 3, 4, 5, 6])
-            #print(x)
 
             return '\n'.join(display_elements)
 
@@ -142,11 +138,7 @@ class NeoDisplay:
         To change the pixel reperesentation, change pixel_type to something else
 
         """
-        #print(self.serpentine_to_coord(pixels_to_set))
 
-        #Regenerate Row list
-        print(pixels_to_set)
-        #clear should be (onePixel,twoPixel)
 
         self.pixels = self.serpentine_to_coord(pixels_to_set)
         i = 0

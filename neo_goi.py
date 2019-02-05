@@ -36,7 +36,8 @@ def cursor_home():
 
 #Deal with arguments
 arguments = len(sys.argv) - 1
-parser = argparse.ArgumentParser()
+descString = "Simulates a neo_goi server"
+parser = argparse.ArgumentParser(description=descString)
 parser.add_argument("-LP", "--localport", help="sets localport")
 parser.add_argument("-RP", "--remoteport", help="sets remoteport")
 parser.add_argument("-LI", "--localip", help="sets localip")
