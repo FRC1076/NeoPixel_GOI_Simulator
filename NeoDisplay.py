@@ -14,7 +14,6 @@ class NeoDisplay:
 
         self.pixels_to_rows = [' '] * (self.width * self.height)
 
-
     def coord_to_serpentine(self, coord_list):
 
         new_coord_list = []
@@ -60,7 +59,7 @@ class NeoDisplay:
 
         if (clear_screen is not False):
 
-            oneCoord, twoCoord = (0,1)
+            oneCoord, twoCoord = (0, 1)
 
             pixels_to_remove = []  #[56,57,58,59]
 
@@ -107,7 +106,7 @@ class NeoDisplay:
 
             rendered_lines = []
 
-            for i in range(self.height):  
+            for i in range(self.height):
                 rendered_line = '| ' + ' '.join(out[i]) + ' |'
                 rendered_lines.append(rendered_line)
 
@@ -116,7 +115,6 @@ class NeoDisplay:
             #Put everything into a readable format
             banner = ''.join(top) + '---'
             display_elements = [banner] + rendered_lines + [banner]
-
 
             return '\n'.join(display_elements)
 
@@ -139,12 +137,11 @@ class NeoDisplay:
 
         """
 
-
         self.pixels = self.serpentine_to_coord(pixels_to_set)
         i = 0
         for cpv in self.pixels:
-            
-            if(colors != []):
+
+            if (colors != []):
                 self.pixels_to_rows[cpv] = colors[i] + pixel_type + '\u001b[0m'
             else:
                 self.pixels_to_rows[cpv] = pixel_type
