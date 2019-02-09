@@ -28,12 +28,14 @@ class Text_To_Neo:
         draw = ImageDraw.Draw(img)
         draw.text((0, 0), text, "white", font=myfont)
         pixels = np.array(img, dtype=np.uint8)
+        print(pixels)
         chars = np.array([' ','*'], dtype="U1")[pixels]
         strings = chars.view('U' + str(chars.shape[1])).flatten()
+        #print(chars)
         x = "\n".join(strings)
         return x
 
-    def Pixels_To_Neo(self,coordinate):
+    def Pixels_To_Neo(self,coordinate, light_size):
         """
         This should take the output of Text_To_Pixels() and 
         a coordinate on the lights plane and output a list of 
@@ -51,4 +53,4 @@ class Text_To_Neo:
 
 if __name__ == "__main__":
     d = Text_To_Neo()
-    print(d.convert("python"))
+    print(d.Text_To_Pixels("python"))
